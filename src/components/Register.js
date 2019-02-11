@@ -1,6 +1,7 @@
 import React from 'react';
-import { Form, Input, Button, message} from 'antd';
-import { API_ROOT} from "../constants";
+import { Form, Input, Button, message } from 'antd';
+import { API_ROOT } from '../constants';
+import { Link } from 'react-router-dom'
 
 class RegistrationForm extends React.Component {
     state = {
@@ -10,7 +11,6 @@ class RegistrationForm extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // check if all bank is correctly filled
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
@@ -26,13 +26,16 @@ class RegistrationForm extends React.Component {
                         return response.text();
                     }
                     throw new Error(response.statusText);
-                }).then((data) => {
+                })
+                    .then((data) => {
                         console.log(data);
                         message.success('Registration Succeed!');
-                }).catch((e) => {
+                        this.props.history.push('/login');
+                    })
+                    .catch((e) => {
                         console.log(e);
                         message.error('Registration Failed.');
-                });
+                    });
             }
         });
     }
@@ -58,8 +61,6 @@ class RegistrationForm extends React.Component {
         }
         callback();
     }
-
-
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -87,16 +88,14 @@ class RegistrationForm extends React.Component {
             },
         };
 
-
-
         return (
-            <Form onSubmit={this.handleSubmit}　className="register">
+            <Form onSubmit={this.handleSubmit} className="register">
                 <Form.Item
                     {...formItemLayout}
                     label="Username"
                 >
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: 'Please input your username!'}],
+                        rules: [{ required: true, message: 'Please input your username!' }],
                     })(
                         <Input />
                     )}
@@ -131,6 +130,7 @@ class RegistrationForm extends React.Component {
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">Register</Button>
+                    <p>I already have an account, go back to <Link to="/login">login</Link> </p>
                 </Form.Item>
             </Form>
         );
@@ -138,4 +138,3 @@ class RegistrationForm extends React.Component {
 }
 
 export const Register = Form.create({ name: 'register' })(RegistrationForm);
-

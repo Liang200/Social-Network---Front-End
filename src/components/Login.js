@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Icon, Input, Button , message } from 'antd';
 import {API_ROOT} from "../constants"
+import {Link} from 'react-router-dom'
 
 
 class NormalLoginForm extends React.Component {
@@ -22,6 +23,8 @@ class NormalLoginForm extends React.Component {
                     throw new Error(response.statusText);
                 }).then((data) => {
                     message.success('Login Success!');
+                    console.log(data);
+                    this.props.handleSuccessfullLogin(data);
                 }).catch((e) => {
                     console.log(e);
                     message.error('Login fail');
@@ -52,7 +55,7 @@ class NormalLoginForm extends React.Component {
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Log in
                     </Button>
-                    Or <a href="">register now!</a>
+                    Or <Link to="/register">register now!</Link>
                 </Form.Item>
             </Form>
         );
