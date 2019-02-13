@@ -3,6 +3,8 @@ import React from 'react';
 import { Tabs, Button, Spin } from 'antd';
 import { GEO_OPTIONS, POS_KEY, API_ROOT, AUTH_HEADER, TOKEN_KEY } from '../constants';
 
+import {Gallery} from "./Galley";
+
 const TabPane = Tabs.TabPane;
 
 export class Home extends React.Component {
@@ -17,6 +19,7 @@ export class Home extends React.Component {
         // get location when render
         if ("geolocation" in navigator) {
             /* geolocation is available */
+            this.setState({ isLoadingGeoLocation: true, error: '' });
             navigator.geolocation.getCurrentPosition(
                 this.onSuccessLoadGeoLocation,
                 this.onFailedLoadGeoLocation,
@@ -74,9 +77,20 @@ export class Home extends React.Component {
         } else if (isLoadingPosts){
             return <Spin tip="Loading posts..." />
         } else if (posts.length > 0){
-            return <div>get image</div>
+            const images = this.state.posts.map((post) => {
+                return {
+                    user: post.user,
+                    src: post.url,
+                    thumbnail: post.url,
+                    caption: post.message,
+                    thumbnailWidth: 400,
+                    thumbnailHeight: 300,
+                }
+            });
+
+            return (<Gallery images={images}/>);
         } else {
-            return <div>get nothong</div>
+            return <div>'No nearby posts.'</div>
         }
     }
     render() {
