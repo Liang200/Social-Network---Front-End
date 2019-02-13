@@ -10,13 +10,17 @@ class App extends Component {
 
   handleSuccessfullLogin = (token) => {
       localStorage.setItem('TOKEN_KEY' , token);
-      this.setState(true);
+      this.setState({ isLoggedIn: true });
   }
-
+  // arrow function will automatically bind with this
+  handleSuccessfullLogout = () => {
+      localStorage.removeItem(TOKEN_KEY);
+      this.setState({isLoggedIn : false});
+  }
   render(){
     return (
       <div className="App">
-        <TopBar/>
+        <TopBar isLoggedIn = {this.state.isLoggedIn} handleSuccessfullLogout = {this.handleSuccessfullLogout}/>;
         <Main handleSuccessfullLogin = {this.handleSuccessfullLogin} isLoggedIn = {this.state.isLoggedIn} className="main"/>
       </div>
     );
