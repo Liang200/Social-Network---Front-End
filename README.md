@@ -10,6 +10,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 *__React Router v4__
 *__Google Map API__
 
+## Demo 
+![](demo.gif)
+
 ## Available Scripts
 
 In the project directory, you can run:
