@@ -5,10 +5,10 @@
 
 ## Build with
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-*__REACT__
-*__Ant Design__
-*__React Router v4__
-*__Google Map API__
+* __REACT__
+* __Ant Design__
+* __React Router v4__
+* __Google Map API__
 
 ## Demo 
 ![](demo.gif)
